@@ -1,0 +1,203 @@
+@font-face {
+    font-family: 'QuickSandRegular';
+    src: url('../font/quicksand-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    /* font: size/line-height */
+    font: 18px/36px;
+    font-family: 'QuickSandRegular', cursive;
+    background-image: linear-gradient(to right bottom, #34495e 20%, #9b59b6, #3498db, #2ecc71, #1abc9c);
+
+}
+
+h1 {
+    font-size: 70px;
+    font-weight: bold;
+    color: #3498db;
+    margin: 50px auto;
+    text-align: center;
+    text-shadow: 1px 1px 1.5px #1abc9c;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+    gap: 10px;
+}
+
+.gallery li {
+    width: 256px;
+    height: 256px;
+    /* overflow: hidden; */
+    border: 5px solid #1abc9c;
+    /* float: left; */
+    text-align: center;
+    /* agar span yang position  nya absolute tetap di dalam elemen li */
+    position: relative;
+}
+
+.gallery li,
+.gallery li img,
+.gallery li span {
+    border-radius: 50%;
+}
+
+.gallery li span {
+    display: block;
+    width: 256px;
+    height: 256px;
+    font-size: 2em;
+    background-color: rgba(200, 200, 200, 0.5);
+    /* absolute agar elemen span berada di depan elemen li */
+    position: absolute;
+    top: 0;
+    text-align: center;
+    line-height: 256px;
+    color: #1abc9c;
+    text-shadow: 1px 1px 1px #2ecc71;
+    opacity: 0;
+    transform: scale(0) rotate(0);
+    transition: 0.3s;
+}
+
+.gallery li a:hover span {
+    opacity: 1;
+    transform: scale(1) rotate(360deg);
+}
+
+/* .clear {
+    clear: both;
+} */
+
+/* overlay */
+.overlay {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: fixed;
+    /* elemen memenuhi layar ketika top left bottom right nilainya 0*/
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0);
+    /* untuk mengatur tumpukan pada elemen non static */
+    z-index: 999;
+    transition: 0.5s;
+    text-align: center;
+    padding: 100px 0;
+}
+
+/* pseudo class target => mengaktifkan style suatu elemen hanya ketika elemen yang merupakan link menuju id overlay tertentu diklik */
+
+.overlay:target {
+    width: auto;
+    height: auto;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.overlay:target img {
+    animation: fade 1s;
+}
+
+.gallery li .overlay img {
+    border-radius: 10px;
+}
+
+.overlay img {
+    max-height: 100%;
+    box-shadow: 2px 2px 7px rgba(52, 152, 219, 0.5);
+}
+
+.overlay .close {
+    font-weight: bold;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -20px;
+    color: white;
+    text-decoration: none;
+    background-color: #1abc9c;
+    border: 1px solid white;
+    line-height: 30px;
+    padding: 5px 10px;
+    opacity: 0;
+}
+
+.overlay:target .close {
+    animation: slideDownFade 0.5s 0.5s forwards;
+}
+
+.overlay:target .next {
+    animation: fade 0.5s 0.5s forwards;
+}
+
+.overlay:target .prev {
+    animation: fade 0.5s 0.5s forwards;
+}
+
+/* navigasi */
+.next,
+.prev {
+    width: 57px;
+    height: 65px;
+    background-image: url(../img/next.png);
+    position: absolute;
+    text-indent: -9999px;
+    top: 50%;
+    margin-left: 10px;
+    opacity: 0;
+}
+
+.prev {
+    background-image: url(../img/previous.png);
+    margin-left: -75px;
+}
+
+/* animasi */
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomDanFade {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDownFade {
+    0% {
+        opacity: 0;
+        margin-top: -20px;
+    }
+
+    100% {
+        opacity: 1;
+        margin-top: 0;
+    }
+}
